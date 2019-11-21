@@ -408,7 +408,7 @@ void TinyGltfImporterTest::animation() {
         CORRADE_COMPARE(animation->trackResultType(0), AnimationTrackType::Quaternion);
         CORRADE_COMPARE(animation->trackTargetType(0), AnimationTrackTargetType::Rotation3D);
         CORRADE_COMPARE(animation->trackTarget(0), 0);
-        Animation::TrackView<Float, Quaternion> rotation = animation->track<Quaternion>(0);
+        Animation::TrackView<const Float, const Quaternion> rotation = animation->track<Quaternion>(0);
         CORRADE_COMPARE(rotation.interpolation(), Animation::Interpolation::Linear);
         CORRADE_COMPARE(rotation.before(), Animation::Extrapolation::Constant);
         CORRADE_COMPARE(rotation.after(), Animation::Extrapolation::Constant);
@@ -436,7 +436,7 @@ void TinyGltfImporterTest::animation() {
         CORRADE_COMPARE(animation->trackResultType(1), AnimationTrackType::Vector3);
         CORRADE_COMPARE(animation->trackTargetType(1), AnimationTrackTargetType::Translation3D);
         CORRADE_COMPARE(animation->trackTarget(1), 1);
-        Animation::TrackView<Float, Vector3> translation = animation->track<Vector3>(1);
+        Animation::TrackView<const Float, const Vector3> translation = animation->track<Vector3>(1);
         CORRADE_COMPARE(translation.interpolation(), Animation::Interpolation::Constant);
         CORRADE_COMPARE(translation.before(), Animation::Extrapolation::Constant);
         CORRADE_COMPARE(translation.after(), Animation::Extrapolation::Constant);
@@ -455,7 +455,7 @@ void TinyGltfImporterTest::animation() {
         CORRADE_COMPARE(animation->trackResultType(2), AnimationTrackType::Vector3);
         CORRADE_COMPARE(animation->trackTargetType(2), AnimationTrackTargetType::Scaling3D);
         CORRADE_COMPARE(animation->trackTarget(2), 2);
-        Animation::TrackView<Float, Vector3> scaling = animation->track<Vector3>(2);
+        Animation::TrackView<const Float, const Vector3> scaling = animation->track<Vector3>(2);
         CORRADE_COMPARE(scaling.interpolation(), Animation::Interpolation::Linear);
         CORRADE_COMPARE(scaling.before(), Animation::Extrapolation::Constant);
         CORRADE_COMPARE(scaling.after(), Animation::Extrapolation::Constant);
@@ -595,7 +595,7 @@ void TinyGltfImporterTest::animationSpline() {
     CORRADE_COMPARE(animation->trackResultType(0), AnimationTrackType::Quaternion);
     CORRADE_COMPARE(animation->trackTargetType(0), AnimationTrackTargetType::Rotation3D);
     CORRADE_COMPARE(animation->trackTarget(0), 3);
-    Animation::TrackView<Float, CubicHermiteQuaternion> rotation = animation->track<CubicHermiteQuaternion>(0);
+    Animation::TrackView<const Float, const CubicHermiteQuaternion> rotation = animation->track<CubicHermiteQuaternion>(0);
     CORRADE_COMPARE(rotation.interpolation(), Animation::Interpolation::Spline);
     CORRADE_COMPARE(rotation.before(), Animation::Extrapolation::Constant);
     CORRADE_COMPARE(rotation.after(), Animation::Extrapolation::Constant);
@@ -624,7 +624,7 @@ void TinyGltfImporterTest::animationSpline() {
     CORRADE_COMPARE(animation->trackResultType(1), AnimationTrackType::Vector3);
     CORRADE_COMPARE(animation->trackTargetType(1), AnimationTrackTargetType::Translation3D);
     CORRADE_COMPARE(animation->trackTarget(1), 4);
-    Animation::TrackView<Float, CubicHermite3D> translation = animation->track<CubicHermite3D>(1);
+    Animation::TrackView<const Float, const CubicHermite3D> translation = animation->track<CubicHermite3D>(1);
     CORRADE_COMPARE(translation.interpolation(), Animation::Interpolation::Spline);
     CORRADE_COMPARE(translation.before(), Animation::Extrapolation::Constant);
     CORRADE_COMPARE(translation.after(), Animation::Extrapolation::Constant);
@@ -639,7 +639,7 @@ void TinyGltfImporterTest::animationSpline() {
     CORRADE_COMPARE(animation->trackResultType(2), AnimationTrackType::Vector3);
     CORRADE_COMPARE(animation->trackTargetType(2), AnimationTrackTargetType::Scaling3D);
     CORRADE_COMPARE(animation->trackTarget(2), 5);
-    Animation::TrackView<Float, CubicHermite3D> scaling = animation->track<CubicHermite3D>(2);
+    Animation::TrackView<const Float, const CubicHermite3D> scaling = animation->track<CubicHermite3D>(2);
     CORRADE_COMPARE(scaling.interpolation(), Animation::Interpolation::Spline);
     CORRADE_COMPARE(scaling.before(), Animation::Extrapolation::Constant);
     CORRADE_COMPARE(scaling.after(), Animation::Extrapolation::Constant);
@@ -683,7 +683,7 @@ void TinyGltfImporterTest::animationSplineSharedWithSameTimeTrack() {
     CORRADE_COMPARE(animation->trackResultType(0), AnimationTrackType::Vector3);
     CORRADE_COMPARE(animation->trackTargetType(0), AnimationTrackTargetType::Translation3D);
     CORRADE_COMPARE(animation->trackTarget(0), 0);
-    Animation::TrackView<Float, CubicHermite3D> translation = animation->track<CubicHermite3D>(1);
+    Animation::TrackView<const Float, const CubicHermite3D> translation = animation->track<CubicHermite3D>(1);
     CORRADE_COMPARE(translation.interpolation(), Animation::Interpolation::Spline);
     CORRADE_COMPARE(translation.before(), Animation::Extrapolation::Constant);
     CORRADE_COMPARE(translation.after(), Animation::Extrapolation::Constant);
@@ -701,7 +701,7 @@ void TinyGltfImporterTest::animationSplineSharedWithSameTimeTrack() {
     CORRADE_COMPARE(animation->trackResultType(1), AnimationTrackType::Vector3);
     CORRADE_COMPARE(animation->trackTargetType(1), AnimationTrackTargetType::Scaling3D);
     CORRADE_COMPARE(animation->trackTarget(1), 0);
-    Animation::TrackView<Float, CubicHermite3D> scaling = animation->track<CubicHermite3D>(1);
+    Animation::TrackView<const Float, const CubicHermite3D> scaling = animation->track<CubicHermite3D>(1);
     CORRADE_COMPARE(scaling.interpolation(), Animation::Interpolation::Spline);
     CORRADE_COMPARE(scaling.before(), Animation::Extrapolation::Constant);
     CORRADE_COMPARE(scaling.after(), Animation::Extrapolation::Constant);
@@ -739,7 +739,7 @@ void TinyGltfImporterTest::animationShortestPathOptimizationEnabled() {
     CORRADE_VERIFY(animation);
     CORRADE_COMPARE(animation->trackCount(), 1);
     CORRADE_COMPARE(animation->trackType(0), AnimationTrackType::Quaternion);
-    Animation::TrackView<Float, Quaternion> track = animation->track<Quaternion>(0);
+    Animation::TrackView<const Float, const Quaternion> track = animation->track<Quaternion>(0);
     const Quaternion rotationValues[]{
         {{0.0f, 0.0f, 0.92388f}, -0.382683f},   // 0 s: 225°
         {{0.0f, 0.0f, 0.707107f}, -0.707107f},  // 1 s: 270°
@@ -788,7 +788,7 @@ void TinyGltfImporterTest::animationShortestPathOptimizationDisabled() {
     CORRADE_VERIFY(animation);
     CORRADE_COMPARE(animation->trackCount(), 1);
     CORRADE_COMPARE(animation->trackType(0), AnimationTrackType::Quaternion);
-    Animation::TrackView<Float, Quaternion> track = animation->track<Quaternion>(0);
+    Animation::TrackView<const Float, const Quaternion> track = animation->track<Quaternion>(0);
 
     /* Should be the same as in animation-patching.bin.in */
     const Quaternion rotationValues[]{
@@ -864,7 +864,7 @@ void TinyGltfImporterTest::animationQuaternionNormalizationEnabled() {
     CORRADE_COMPARE(animation->trackCount(), 1);
     CORRADE_COMPARE(animation->trackType(0), AnimationTrackType::Quaternion);
 
-    Animation::TrackView<Float, Quaternion> track = animation->track<Quaternion>(0);
+    Animation::TrackView<const Float, const Quaternion> track = animation->track<Quaternion>(0);
     const Quaternion rotationValues[]{
         {{0.0f, 0.0f, 0.382683f}, 0.92388f},    // is normalized
         {{0.0f, 0.0f, 0.707107f}, 0.707107f},   // is not, renormalized
@@ -887,7 +887,7 @@ void TinyGltfImporterTest::animationQuaternionNormalizationDisabled() {
     CORRADE_COMPARE(animation->trackCount(), 1);
     CORRADE_COMPARE(animation->trackType(0), AnimationTrackType::Quaternion);
 
-    Animation::TrackView<Float, Quaternion> track = animation->track<Quaternion>(0);
+    Animation::TrackView<const Float, const Quaternion> track = animation->track<Quaternion>(0);
     const Quaternion rotationValues[]{
         Quaternion{{0.0f, 0.0f, 0.382683f}, 0.92388f},      // is normalized
         Quaternion{{0.0f, 0.0f, 0.707107f}, 0.707107f}*2,   // is not
@@ -941,7 +941,7 @@ void TinyGltfImporterTest::animationMerge() {
     CORRADE_COMPARE(animation->trackType(0), AnimationTrackType::Quaternion);
     CORRADE_COMPARE(animation->trackTargetType(0), AnimationTrackTargetType::Rotation3D);
     CORRADE_COMPARE(animation->trackTarget(0), 0);
-    Animation::TrackView<Float, Quaternion> rotation = animation->track<Quaternion>(0);
+    Animation::TrackView<const Float, const Quaternion> rotation = animation->track<Quaternion>(0);
     CORRADE_COMPARE(rotation.interpolation(), Animation::Interpolation::Linear);
     CORRADE_COMPARE(rotation.at(1.875f), Quaternion::rotation(90.0_degf, Vector3::xAxis()));
 
@@ -949,7 +949,7 @@ void TinyGltfImporterTest::animationMerge() {
     CORRADE_COMPARE(animation->trackType(1), AnimationTrackType::Vector3);
     CORRADE_COMPARE(animation->trackTargetType(1), AnimationTrackTargetType::Translation3D);
     CORRADE_COMPARE(animation->trackTarget(1), 1);
-    Animation::TrackView<Float, Vector3> translation = animation->track<Vector3>(1);
+    Animation::TrackView<const Float, const Vector3> translation = animation->track<Vector3>(1);
     CORRADE_COMPARE(translation.interpolation(), Animation::Interpolation::Constant);
     CORRADE_COMPARE(translation.at(1.5f), Vector3::yAxis(2.5f));
 
@@ -957,7 +957,7 @@ void TinyGltfImporterTest::animationMerge() {
     CORRADE_COMPARE(animation->trackType(2), AnimationTrackType::Vector3);
     CORRADE_COMPARE(animation->trackTargetType(2), AnimationTrackTargetType::Scaling3D);
     CORRADE_COMPARE(animation->trackTarget(2), 2);
-    Animation::TrackView<Float, Vector3> scaling = animation->track<Vector3>(2);
+    Animation::TrackView<const Float, const Vector3> scaling = animation->track<Vector3>(2);
     CORRADE_COMPARE(scaling.interpolation(), Animation::Interpolation::Linear);
     CORRADE_COMPARE(scaling.at(1.5f), Vector3::zScale(5.2f));
 
@@ -965,7 +965,7 @@ void TinyGltfImporterTest::animationMerge() {
     CORRADE_COMPARE(animation->trackType(3), AnimationTrackType::CubicHermiteQuaternion);
     CORRADE_COMPARE(animation->trackTargetType(3), AnimationTrackTargetType::Rotation3D);
     CORRADE_COMPARE(animation->trackTarget(3), 3);
-    Animation::TrackView<Float, CubicHermiteQuaternion> rotation2 = animation->track<CubicHermiteQuaternion>(3);
+    Animation::TrackView<const Float, const CubicHermiteQuaternion> rotation2 = animation->track<CubicHermiteQuaternion>(3);
     CORRADE_COMPARE(rotation2.interpolation(), Animation::Interpolation::Spline);
     /* The same as in CubicHermiteTest::splerpQuaternion() */
     CORRADE_COMPARE(rotation2.at(0.5f + 0.35f*3),
@@ -975,7 +975,7 @@ void TinyGltfImporterTest::animationMerge() {
     CORRADE_COMPARE(animation->trackType(4), AnimationTrackType::CubicHermite3D);
     CORRADE_COMPARE(animation->trackTargetType(4), AnimationTrackTargetType::Translation3D);
     CORRADE_COMPARE(animation->trackTarget(4), 4);
-    Animation::TrackView<Float, CubicHermite3D> translation2 = animation->track<CubicHermite3D>(4);
+    Animation::TrackView<const Float, const CubicHermite3D> translation2 = animation->track<CubicHermite3D>(4);
     CORRADE_COMPARE(translation2.interpolation(), Animation::Interpolation::Spline);
     /* The same as in CubicHermiteTest::splerpVector() */
     CORRADE_COMPARE(translation2.at(0.5f + 0.35f*3),
@@ -985,7 +985,7 @@ void TinyGltfImporterTest::animationMerge() {
     CORRADE_COMPARE(animation->trackType(5), AnimationTrackType::CubicHermite3D);
     CORRADE_COMPARE(animation->trackTargetType(5), AnimationTrackTargetType::Scaling3D);
     CORRADE_COMPARE(animation->trackTarget(5), 5);
-    Animation::TrackView<Float, CubicHermite3D> scaling2 = animation->track<CubicHermite3D>(5);
+    Animation::TrackView<const Float, const CubicHermite3D> scaling2 = animation->track<CubicHermite3D>(5);
     CORRADE_COMPARE(scaling2.interpolation(), Animation::Interpolation::Spline);
     CORRADE_COMPARE(scaling2.at(0.5f + 0.35f*3),
         (Vector3{0.118725f, 0.8228f, -2.711f}));
