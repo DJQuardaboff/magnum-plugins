@@ -138,10 +138,20 @@ read.
 
 @subsection Trade-OpenGexImporter-limitations-meshes Mesh import
 
--   64bit indices are not supported.
 -   Quads are not supported.
 -   Additional mesh LoDs after the first one are ignored.
 -   `w` coordinate for vertex positions and normals is ignored if present.
+-   Positions and normals are always imported as @ref MeshAttribute::Vector3,
+    texture coordinates as @ref MeshAttribute::Vector2. Positions and normals
+    of a different component count than 3 and texture coordinates of a
+    different component count than 2 are not supported. Only floats are
+    supported, doubles not.
+-   Indices are imported as either @ref MeshIndexType::UnsignedByte,
+    @ref MeshIndexType::UnsignedShort or @ref MeshIndexType::UnsignedInt.
+    64-bit indices are not supported.
+
+The imported mesh always has at least one vertex attribute, but positions are
+not required to be present. Indices are optional as well.
 
 @subsection Trade-OpenGexImporter-limitations-materials Material import
 
@@ -244,8 +254,8 @@ class MAGNUM_OPENGEXIMPORTER_EXPORT OpenGexImporter: public AbstractImporter {
         MAGNUM_OPENGEXIMPORTER_LOCAL UnsignedInt doLightCount() const override;
         MAGNUM_OPENGEXIMPORTER_LOCAL Containers::Optional<LightData> doLight(UnsignedInt id) override;
 
-        MAGNUM_OPENGEXIMPORTER_LOCAL UnsignedInt doMesh3DCount() const override;
-        MAGNUM_OPENGEXIMPORTER_LOCAL Containers::Optional<MeshData3D> doMesh3D(UnsignedInt id) override;
+        MAGNUM_OPENGEXIMPORTER_LOCAL UnsignedInt doMeshCount() const override;
+        MAGNUM_OPENGEXIMPORTER_LOCAL Containers::Optional<MeshData> doMesh(UnsignedInt id) override;
 
         MAGNUM_OPENGEXIMPORTER_LOCAL UnsignedInt doMaterialCount() const override;
         MAGNUM_OPENGEXIMPORTER_LOCAL Int doMaterialForName(const std::string& name) override;
